@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import errorHandler from "./middlewares/errorHandler.js";
 
 const app = express();
 
@@ -12,5 +13,8 @@ app.get("/api/health", (req, res) => {
     message: "CloudPilot API is running",
   });
 });
+
+
+app.use(errorHandler);
 
 export default app;
