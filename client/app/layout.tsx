@@ -1,49 +1,25 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display, Geist_Mono, Outfit } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+import "@fontsource-variable/playfair-display/index.css";
+import "@fontsource-variable/playfair-display/wght-italic.css";
+
 import "./globals.css";
-import { ThemeProvider } from "@/components/providers/themeProvider";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const display = Playfair_Display({
-  variable: "--font-display",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-});
-
+import { ThemeProvider } from "@/providers/themeProvider";
+import { SITE } from "@/constants/site";
 
 export const metadata: Metadata = {
-  title: "CloudPoint",
-  description: "Depoly your app on CloudPoint",
+  title: SITE.title,
+  description: SITE.description,
 };
 
-const outfit = Outfit({
-  subsets: ["latin"],
-  variable: "--font-outfit",
-  display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-geist-mono",
-  display: "swap",
-});
-
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en"
-  suppressHydrationWarning
-  className={`
-    ${inter.variable}
-    ${display.variable}
-    ${geistMono.variable} ${outfit.variable}
-  `}>
-      <body className="min-h-full flex flex-col">
-        <ThemeProvider>{children}</ThemeProvider>
+    <html lang="en" suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
+      <body className="min-h-screen antialiased">
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
